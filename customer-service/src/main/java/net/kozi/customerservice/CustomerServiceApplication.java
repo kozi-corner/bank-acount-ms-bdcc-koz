@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Bean;
 import java.util.List;
 
 @SpringBootApplication
-//@EnableConfigurationProperties(GlobalConfig.class)
+@EnableConfigurationProperties(GlobalConfig.class)
 public class CustomerServiceApplication {
 
 	public static void main(String[] args) {
