@@ -1,0 +1,23 @@
+services:
+  kozi-ebank-discovery-service:
+    container_name: kozi-ebank-discovery-service
+    build: ./discovery-service
+    ports:
+      - '8761:8761'
+    expose:
+      - '8761'
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8761/actuator/health"]
+      interval: 10s
+  kozi-ebank-config-service:
+    container_name: kozi-ebank-config-service
+    build: ./config-service
+    ports:
+      - '9999:9999'
+    expose:
+      - '9999'
+    environment:
+      - DISCOVERY_SERVICE_URL=http://kozi-ebank-discovery-service:8761/eureka
+    depends_on:
+      kozi-ebank-discovery-service:
+       condition: service_healthy
