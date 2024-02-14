@@ -56,3 +56,16 @@ services:
     depends_on:
       kozi-ebank-customer-service:
         condition: service_healthy
+  kozi-ebank-gateway-service:
+    build: ./gateway-service
+    container_name: kozi-ebank-gateway-service
+    ports:
+      - '8888:8888'
+    expose:
+      - '8888'
+    environment:
+      - DISCOVERY_SERVICE_URL=http://kozi-ebank-discovery-service:8761/eureka
+      - CONFIG_SERVICE_URL=http://kozi-ebank-config-service:9999
+    depends_on:
+      kozi-ebank-config-service:
+        condition: service_healthy
